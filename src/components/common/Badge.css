@@ -1,0 +1,62 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+/* Variants */
+.badge--default {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.badge--sale {
+  background-color: #ef4444;
+  color: white;
+}
+
+.badge--new {
+  background-color: #10b981;
+  color: white;
+}
+
+.badge--bestseller {
+  background-color: #f59e0b;
+  color: white;
+}
+
+.badge--out-of-stock {
+  background-color: #6b7280;
+  color: white;
+}
+
+.badge--limited {
+  background-color: #8b5cf6;
+  color: white;
+}
+
+.badge--featured {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* Sizes */
+.badge--small {
+  padding: 0.125rem 0.375rem;
+  font-size: 0.75rem;
+}
+
+.badge--medium {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8125rem;
+}
+
+.badge--large {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+}

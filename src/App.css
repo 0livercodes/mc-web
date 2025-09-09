@@ -1,42 +1,194 @@
-#root {
-  max-width: 1280px;
+.app {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.app__main {
+  padding-top: 0;
+}
+
+.app__container {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
+}
+
+.app__hero {
+  text-align: center;
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 1rem;
+  margin-bottom: 3rem;
+}
+
+.app__title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+}
+
+.app__subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.app__section {
+  margin-bottom: 4rem;
+}
+
+.app__section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 2rem 0;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Demo Grids */
+.app__demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.app__demo-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.app__demo-item h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 1rem 0;
+}
+
+.app__button-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.app__badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.app__rating-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.app__price-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Product Grid */
+.app__product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Cart Demo */
+.app__cart-demo {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.app__cart-items {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.app__cart-items h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 1rem 0;
+}
+
+.app__cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.app__cart-summary {
+  position: sticky;
+  top: 6rem;
+}
+
+/* Footer */
+.app__footer {
+  text-align: center;
+  padding: 2rem 0;
+  border-top: 1px solid #e5e7eb;
+  color: #6b7280;
+  margin-top: 3rem;
+}
+
+.app__footer p {
+  margin: 0.5rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .app__cart-demo {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .app__cart-summary {
+    position: static;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@media (max-width: 768px) {
+  .app__container {
+    padding: 1rem 0.5rem;
   }
-}
 
-.card {
-  padding: 2em;
-}
+  .app__hero {
+    padding: 2rem 1rem;
+  }
 
-.read-the-docs {
-  color: #888;
+  .app__title {
+    font-size: 2rem;
+  }
+
+  .app__subtitle {
+    font-size: 1rem;
+  }
+
+  .app__demo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app__product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app__button-grid {
+    justify-content: center;
+  }
+
+  .app__badge-grid {
+    justify-content: center;
+  }
 }

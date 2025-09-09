@@ -1,0 +1,80 @@
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating__stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.rating__star {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #d1d5db;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rating__star:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.rating__star--readonly {
+  cursor: default;
+  pointer-events: none;
+}
+
+.rating__star--filled {
+  color: #fbbf24;
+}
+
+.rating__star:hover:not(.rating__star--readonly) {
+  color: #fbbf24;
+}
+
+/* Sizes */
+.rating__star--small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.rating__star--medium {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.rating__star--large {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.rating__value {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Half star effect */
+.rating__star--half {
+  position: relative;
+  color: #d1d5db;
+}
+
+.rating__star--half::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  color: #fbbf24;
+}
