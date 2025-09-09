@@ -1,0 +1,30 @@
+Bakery E-commerce Requirements Form
+
+1. Products
+- Types of bakery items:
+- Categories/variants/customizations:
+There should be about a 100 sku now 
+there are variants of the same product in flavours 
+
+
+2. Orders
+- Delivery, pickup, or both:
+- Order tracking/status updates needed:
+
+3. Users
+- Guest checkout or user accounts:
+- Admin roles needed:
+
+4. Payments
+- Preferred payment methods: MIPS 
+
+5. CMS/Admin
+- Admin management needs (products, orders, users, content):
+- Analytics or sales reports needed:
+
+6. Other Features
+- Reviews/ratings:
+- Discount codes:
+- Inventory management:
+- Notifications:
+- Other requirements:
