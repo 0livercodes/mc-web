@@ -2,12 +2,10 @@
   display: flex;
   gap: 1rem;
   padding: 1rem;
-  border-bottom: 1px solid #f3f4f6;
   align-items: flex-start;
 }
 
 .cart-item:last-child {
-  border-bottom: none;
 }
 
 .cart-item__image {

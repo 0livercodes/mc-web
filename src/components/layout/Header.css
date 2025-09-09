@@ -1,10 +1,8 @@
 .header {
   background: white;
-  border-bottom: 1px solid #e5e7eb;
   position: sticky;
   top: 0;
   z-index: 40;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
 .header__container {
@@ -13,6 +11,7 @@
   padding: 0 1rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
   min-height: 4rem;
 }
@@ -33,6 +32,8 @@
 /* Navigation */
 .header__nav {
   display: none;
+  flex: 1;
+  justify-content: center;
 }
 
 .header__nav-list {
@@ -58,9 +59,7 @@
 
 /* Search */
 .header__search {
-  flex: 1;
   max-width: 400px;
-  margin: 0 auto;
 }
 
 /* Actions */
@@ -170,9 +169,7 @@
   top: 100%;
   right: 0;
   background: white;
-  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   min-width: 200px;
   z-index: 50;
   margin-top: 0.5rem;
@@ -199,7 +196,7 @@
 
 .header__user-menu-separator {
   height: 1px;
-  background-color: #e5e7eb;
+  background-color: #f3f4f6;
   margin: 0.5rem 0;
 }
 
@@ -229,7 +226,7 @@
 /* Tablet styles */
 @media (min-width: 768px) {
   .header__nav {
-    display: block;
+    display: flex;
   }
   
   .header__container {
