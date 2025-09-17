@@ -111,3 +111,16 @@ export const formatPhoneNumber = (phone) => {
 export const generateId = () => {
   return Math.random().toString(36).substr(2, 9);
 };
+
+/**
+ * Format price with optional currency display
+ */
+export function formatPrice(amount, currency = 'USD', showCurrency = true) {
+  if (!showCurrency) {
+    return amount.toFixed(2);
+  }
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+  }).format(amount);
+}

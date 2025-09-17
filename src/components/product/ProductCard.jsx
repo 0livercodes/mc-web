@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Button from '../common/Button';
 import Badge from '../common/Badge';
 import Rating from '../common/Rating';
-import './ProductCard.css';
 
 /**
  * Product Card component for displaying products in grid/list view
@@ -58,90 +57,77 @@ const ProductCard = ({
   };
 
   return (
-    <article className={`product-card product-card--${layout} ${className}`}>
-      <div className="product-card__image-container">
+    <article className={`rounded-lg shadow bg-white flex flex-col ${className}`}>
+      <div className="relative overflow-hidden rounded-t-lg">
         {badge && (
           <Badge 
             variant={badge.variant || 'default'} 
-            className="product-card__badge"
+            className="absolute top-2 left-2 z-10"
           >
             {badge.text}
           </Badge>
         )}
-        
         <img
           src={image}
           alt={name}
-          className={`product-card__image ${imageLoaded ? 'product-card__image--loaded' : ''}`}
+          className={`w-full h-56 object-cover transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={() => setImageLoaded(true)}
           loading="lazy"
         />
-        
-        <div className="product-card__overlay">
-          <div className="product-card__actions">
-            <Button
-              variant="ghost"
-              size="small"
-              onClick={handleQuickView}
-              className="product-card__action"
-              aria-label="Quick view"
-            >
-              👁
-            </Button>
-            <Button
-              variant="ghost"
-              size="small"
-              onClick={handleWishlist}
-              className={`product-card__action ${isWishlisted ? 'product-card__action--active' : ''}`}
-              aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
-            >
-              {isWishlisted ? '❤️' : '🤍'}
-            </Button>
-          </div>
+        <div className="absolute inset-0 flex items-end justify-end gap-2 p-2 opacity-0 hover:opacity-100 transition-opacity bg-gradient-to-t from-black/40 to-transparent">
+          <Button
+            variant="ghost"
+            size="small"
+            onClick={handleQuickView}
+            aria-label="Quick view"
+          >
+            👁
+          </Button>
+          <Button
+            variant="ghost"
+            size="small"
+            onClick={handleWishlist}
+            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+            className={isWishlisted ? 'text-red-500' : ''}
+          >
+            {isWishlisted ? '❤️' : '🤍'}
+          </Button>
         </div>
       </div>
 
-      <div className="product-card__content">
-        <div className="product-card__header">
-          <h3 className="product-card__title">{name}</h3>
+      <div className="flex flex-col flex-1 p-4 gap-2">
+        <div>
+          <h3 className="font-semibold text-lg text-gray-900 mb-1 truncate">{name}</h3>
           {layout === 'list' && description && (
-            <p className="product-card__description">{description}</p>
+            <p className="text-gray-500 text-sm mb-2 line-clamp-2">{description}</p>
           )}
         </div>
-
-        <div className="product-card__rating">
+        <div className="flex items-center gap-2 text-sm">
           <Rating 
             value={rating} 
             readOnly 
             size="small" 
           />
           {reviewCount > 0 && (
-            <span className="product-card__review-count">
-              ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
-            </span>
+            <span className="text-gray-400">({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})</span>
           )}
         </div>
-
-        <div className="product-card__pricing">
-          <span className="product-card__price">${price.toFixed(2)}</span>
+        <div className="flex items-center gap-2 mt-2">
+          <span className="text-xl font-bold text-gray-900">${price.toFixed(2)}</span>
           {originalPrice && originalPrice > price && (
             <>
-              <span className="product-card__original-price">
-                ${originalPrice.toFixed(2)}
-              </span>
-              <Badge variant="sale" size="small" className="product-card__discount">
+              <span className="line-through text-gray-400">${originalPrice.toFixed(2)}</span>
+              <Badge variant="sale" size="small">
                 -{discountPercentage}%
               </Badge>
             </>
           )}
         </div>
-
-        <div className="product-card__footer">
+        <div className="mt-auto">
           <Button
             onClick={handleAddToCart}
             disabled={isOutOfStock}
             fullWidth={layout === 'grid'}
-            className="product-card__add-to-cart"
           >
             {isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
           </Button>

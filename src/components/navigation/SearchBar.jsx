@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import './SearchBar.css';
+// Tailwind CSS used for styling
 
 /**
  * Search Bar component with autocomplete functionality
@@ -50,16 +50,11 @@ const SearchBar = ({
   };
 
   const handleKeyDown = (e) => {
-    if (!showSuggestions || suggestions.length === 0) {
-      return;
-    }
-
+    if (!showSuggestions || suggestions.length === 0) return;
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
-        setActiveSuggestion(prev => 
-          prev < suggestions.length - 1 ? prev + 1 : prev
-        );
+        setActiveSuggestion(prev => prev < suggestions.length - 1 ? prev + 1 : prev);
         break;
       case 'ArrowUp':
         e.preventDefault();
@@ -76,6 +71,8 @@ const SearchBar = ({
       case 'Escape':
         setIsFocused(false);
         inputRef.current?.blur();
+        break;
+      default:
         break;
     }
   };
@@ -114,9 +111,9 @@ const SearchBar = ({
   const showSuggestionsList = isFocused && showSuggestions && suggestions.length > 0;
 
   return (
-    <div className={`search-bar search-bar--${size} ${className}`}>
-      <form onSubmit={handleSubmit} className="search-bar__form">
-        <div className="search-bar__input-container">
+    <div className={`w-full ${className}`}>
+      <form onSubmit={handleSubmit} className="w-full relative">
+        <div className="flex items-center gap-2 w-full max-w-md bg-white rounded-lg shadow px-3 py-2">
           <input
             ref={inputRef}
             type="text"
@@ -126,25 +123,24 @@ const SearchBar = ({
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
-            className="search-bar__input"
+            className="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 py-1"
             aria-label="Search"
             aria-expanded={showSuggestionsList}
             aria-haspopup="listbox"
             aria-autocomplete="list"
             role="combobox"
           />
-          
           <button
             type="submit"
-            className="search-bar__submit"
+            className="text-gray-500 hover:text-blue-600 transition-colors p-1"
             aria-label="Search"
             disabled={loading}
           >
             {loading ? (
-              <span className="search-bar__spinner"></span>
+              <span className="animate-spin w-4 h-4 border-2 border-t-transparent border-blue-500 rounded-full"></span>
             ) : (
               <svg
-                className="search-bar__icon"
+                className="w-5 h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -159,38 +155,31 @@ const SearchBar = ({
             )}
           </button>
         </div>
-
         {showSuggestionsList && (
           <ul
             ref={suggestionsRef}
-            className="search-bar__suggestions"
+            className="absolute z-20 mt-1 w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-lg overflow-auto max-h-60"
             role="listbox"
           >
             {suggestions.map((suggestion, index) => (
               <li
                 key={suggestion.id || index}
-                className={`search-bar__suggestion ${
-                  index === activeSuggestion ? 'search-bar__suggestion--active' : ''
-                }`}
+                className={`px-4 py-2 cursor-pointer flex items-center justify-between hover:bg-blue-50 ${index === activeSuggestion ? 'bg-blue-100 text-blue-700' : ''}`}
                 role="option"
                 aria-selected={index === activeSuggestion}
                 onClick={() => handleSuggestionClick(suggestion)}
               >
-                <div className="search-bar__suggestion-content">
-                  <span className="search-bar__suggestion-text">
-                    {suggestion.text}
-                  </span>
+                <div className="flex flex-col">
+                  <span className="font-medium">{suggestion.text}</span>
                   {suggestion.category && (
-                    <span className="search-bar__suggestion-category">
-                      in {suggestion.category}
-                    </span>
+                    <span className="text-xs text-gray-400">in {suggestion.category}</span>
                   )}
                 </div>
                 {suggestion.type === 'recent' && (
-                  <span className="search-bar__suggestion-icon">🕒</span>
+                  <span className="ml-2 text-xs">🕒</span>
                 )}
                 {suggestion.type === 'popular' && (
-                  <span className="search-bar__suggestion-icon">🔥</span>
+                  <span className="ml-2 text-xs">🔥</span>
                 )}
               </li>
             ))}

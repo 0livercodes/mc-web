@@ -1,5 +1,5 @@
 import Button from '../common/Button';
-import './CartSummary.css';
+// Tailwind CSS used for styling
 
 /**
  * Cart Summary component showing totals, taxes, shipping, and checkout actions
@@ -29,19 +29,19 @@ const CartSummary = ({
   const freeShipping = shipping === 0 && subtotal > 0;
 
   return (
-    <div className={`cart-summary ${className}`}>
+    <div className={`bg-white rounded-lg shadow p-4 flex flex-col gap-3 ${className}`}>
       <h3 className="cart-summary__title">Order Summary</h3>
       
       <div className="cart-summary__breakdown">
         <div className="cart-summary__line">
-          <span className="cart-summary__label">Subtotal</span>
-          <span className="cart-summary__value">{formatPrice(subtotal)}</span>
+          <span className="flex justify-between text-gray-700">Subtotal</span>
+          <span className="flex justify-between text-gray-700">{formatPrice(subtotal)}</span>
         </div>
 
         {discount > 0 && (
           <div className="cart-summary__line cart-summary__line--discount">
-            <span className="cart-summary__label">Discount</span>
-            <span className="cart-summary__value">-{formatPrice(discount)}</span>
+            <span className="flex justify-between text-gray-700">Discount</span>
+            <span className="flex justify-between text-gray-700">-{formatPrice(discount)}</span>
           </div>
         )}
 
@@ -58,15 +58,15 @@ const CartSummary = ({
         </div>
 
         <div className="cart-summary__line">
-          <span className="cart-summary__label">Tax</span>
-          <span className="cart-summary__value">{formatPrice(tax)}</span>
+          <span className="flex justify-between text-gray-700">Tax</span>
+          <span className="flex justify-between text-gray-700">{formatPrice(tax)}</span>
         </div>
 
         <div className="cart-summary__separator"></div>
 
         <div className="cart-summary__line cart-summary__line--total">
-          <span className="cart-summary__label">Total</span>
-          <span className="cart-summary__value">{formatPrice(total)}</span>
+          <span className="flex justify-between text-lg font-semibold text-gray-900 border-t pt-2 mt-2">Total</span>
+          <span className="flex justify-between text-lg font-semibold text-gray-900 border-t pt-2 mt-2">{formatPrice(total)}</span>
         </div>
       </div>
 
@@ -105,7 +105,7 @@ const CartSummary = ({
           loading={checkoutLoading}
           fullWidth
           size="large"
-          className="cart-summary__checkout"
+          className="mt-4 bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors disabled:opacity-50"
         >
           {checkoutLoading ? 'Processing...' : `Checkout ${formatPrice(total)}`}
         </Button>

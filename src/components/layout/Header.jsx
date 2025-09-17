@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SearchBar from '../navigation/SearchBar';
 import Button from '../common/Button';
-import './Header.css';
+
 
 /**
  * Main site header with navigation, search, and user actions
@@ -47,26 +47,26 @@ const Header = ({
   ];
 
   return (
-    <header className={`header ${className}`}>
-      <div className="header__container">
+    <header className={`sticky top-0 z-40 bg-white ${className}`}>
+      <div className="w-full flex items-center justify-center gap-8 px-4 min-h-16">
         {/* Logo */}
-        <div className="header__logo">
-          <h1 className="header__brand">{logo}</h1>
+        <div className="flex items-center justify-center shrink-0">
+          <img src="/src/assets/mc.svg" alt="MC Logo" className="w-12 h-12 block mx-auto" />
         </div>
 
         {/* Main Navigation */}
-        <nav className="header__nav" aria-label="Main navigation">
-          <ul className="header__nav-list">
-            <li><a href="#" className="header__nav-link">Home</a></li>
-            <li><a href="#" className="header__nav-link">Products</a></li>
-            <li><a href="#" className="header__nav-link">Categories</a></li>
-            <li><a href="#" className="header__nav-link">Deals</a></li>
-            <li><a href="#" className="header__nav-link">About</a></li>
+        <nav className="flex-1 flex justify-center" aria-label="Main navigation">
+          <ul className="flex items-center gap-8 list-none m-0 p-0">
+            <li><a href="#" className="text-gray-500 font-medium hover:text-gray-900 transition-colors px-2 py-1">Home</a></li>
+            <li><a href="#" className="text-gray-500 font-medium hover:text-gray-900 transition-colors px-2 py-1">Products</a></li>
+            <li><a href="#" className="text-gray-500 font-medium hover:text-gray-900 transition-colors px-2 py-1">Categories</a></li>
+            <li><a href="#" className="text-gray-500 font-medium hover:text-gray-900 transition-colors px-2 py-1">Deals</a></li>
+            <li><a href="#" className="text-gray-500 font-medium hover:text-gray-900 transition-colors px-2 py-1">About</a></li>
           </ul>
         </nav>
 
         {/* Search Bar */}
-        <div className="header__search">
+        <div className="max-w-md w-full">
           <SearchBar
             value={searchQuery}
             onChange={setSearchQuery}
@@ -78,57 +78,54 @@ const Header = ({
         </div>
 
         {/* User Actions */}
-        <div className="header__actions">
+
+        <div className="flex items-center gap-4 shrink-0">
           {/* Cart Button */}
           <button 
-            className="header__cart-btn"
+            className="relative bg-transparent border-none p-2 cursor-pointer rounded-md hover:bg-gray-100 transition-colors"
             onClick={handleCartClick}
             aria-label={`Shopping cart with ${cartItemCount} items`}
           >
-            <span className="header__cart-icon">🛒</span>
+            <span className="text-xl">🛒</span>
             {cartItemCount > 0 && (
-              <span className="header__cart-badge">{cartItemCount}</span>
+              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs font-semibold px-1 rounded-full min-w-[1.25rem] h-[1.25rem] flex items-center justify-center translate-x-1/4 -translate-y-1/4">{cartItemCount}</span>
             )}
           </button>
 
           {/* User Account */}
           {isAuthenticated ? (
-            <div className="header__user-menu">
+            <div className="relative">
               <button
-                className="header__user-btn"
+                className="flex items-center gap-2 px-2 py-1 rounded hover:bg-gray-100 transition-colors"
                 onClick={toggleUserMenu}
                 aria-label="User menu"
                 aria-expanded={showUserMenu}
               >
-                <span className="header__user-avatar">
-                  {user?.avatar || '👤'}
-                </span>
-                <span className="header__user-name">
-                  {user?.name || 'Account'}
-                </span>
-                <span className="header__user-arrow">▼</span>
+                <span className="text-lg">{user?.avatar || '👤'}</span>
+                <span className="font-medium">{user?.name || 'Account'}</span>
+                <span className="text-xs">▼</span>
               </button>
 
               {showUserMenu && (
-                <div className="header__user-dropdown">
-                  <ul className="header__user-menu-list">
-                    <li><a href="#" className="header__user-menu-link">Profile</a></li>
-                    <li><a href="#" className="header__user-menu-link">Orders</a></li>
-                    <li><a href="#" className="header__user-menu-link">Wishlist</a></li>
-                    <li><a href="#" className="header__user-menu-link">Settings</a></li>
-                    <li className="header__user-menu-separator"></li>
-                    <li><a href="#" className="header__user-menu-link">Sign Out</a></li>
+                <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-10">
+                  <ul className="flex flex-col">
+                    <li><a href="#" className="px-4 py-2 hover:bg-gray-100 transition-colors">Profile</a></li>
+                    <li><a href="#" className="px-4 py-2 hover:bg-gray-100 transition-colors">Orders</a></li>
+                    <li><a href="#" className="px-4 py-2 hover:bg-gray-100 transition-colors">Wishlist</a></li>
+                    <li><a href="#" className="px-4 py-2 hover:bg-gray-100 transition-colors">Settings</a></li>
+                    <li className="border-t my-1"></li>
+                    <li><a href="#" className="px-4 py-2 hover:bg-gray-100 transition-colors">Sign Out</a></li>
                   </ul>
                 </div>
               )}
             </div>
           ) : (
-            <div className="header__auth">
+            <div>
               <Button
                 variant="ghost"
                 size="small"
                 onClick={onAuthClick}
-                className="header__auth-btn"
+                className="px-2 py-1 rounded hover:bg-gray-100 transition-colors"
               >
                 Sign In
               </Button>
@@ -137,10 +134,10 @@ const Header = ({
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button className="header__mobile-toggle" aria-label="Toggle mobile menu">
-          <span className="header__hamburger"></span>
-          <span className="header__hamburger"></span>
-          <span className="header__hamburger"></span>
+        <button className="ml-4 flex flex-col gap-1 items-center justify-center w-8 h-8 rounded hover:bg-gray-100 transition-colors" aria-label="Toggle mobile menu">
+          <span className="block w-6 h-0.5 bg-gray-700"></span>
+          <span className="block w-6 h-0.5 bg-gray-700"></span>
+          <span className="block w-6 h-0.5 bg-gray-700"></span>
         </button>
       </div>
     </header>

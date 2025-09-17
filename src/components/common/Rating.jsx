@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './Rating.css';
+// Tailwind CSS used for styling
 
 /**
  * Star Rating component for product reviews
@@ -15,9 +15,8 @@ const Rating = ({
   className = ''
 }) => {
   const [hoverValue, setHoverValue] = useState(0);
-  
   const displayValue = hoverValue || value;
-  
+
   const handleClick = (rating) => {
     if (!readOnly && onChange) {
       onChange(rating);
@@ -36,20 +35,20 @@ const Rating = ({
     }
   };
 
+  const sizeClasses = {
+    small: 'w-4 h-4',
+    medium: 'w-6 h-6',
+    large: 'w-8 h-8',
+  };
+
   const stars = Array.from({ length: maxRating }, (_, index) => {
     const starValue = index + 1;
     const isFilled = starValue <= displayValue;
-    const isHalfFilled = starValue - 0.5 === displayValue;
-    
     return (
       <button
         key={index}
         type="button"
-        className={`rating__star rating__star--${size} ${
-          isFilled ? 'rating__star--filled' : ''
-        } ${isHalfFilled ? 'rating__star--half' : ''} ${
-          readOnly ? 'rating__star--readonly' : ''
-        }`}
+        className={`p-0 m-0 bg-transparent border-none ${sizeClasses[size] || sizeClasses.medium} ${isFilled ? 'text-yellow-400' : 'text-gray-300'} ${readOnly ? 'pointer-events-none' : ''}`}
         onClick={() => handleClick(starValue)}
         onMouseEnter={() => handleMouseEnter(starValue)}
         onMouseLeave={handleMouseLeave}
@@ -70,12 +69,12 @@ const Rating = ({
   });
 
   return (
-    <div className={`rating ${className}`} role="img" aria-label={`Rating: ${value} out of ${maxRating} stars`}>
-      <div className="rating__stars">
+    <div className={`flex items-center gap-2 ${className}`} role="img" aria-label={`Rating: ${value} out of ${maxRating} stars`}>
+      <div className="flex gap-1">
         {stars}
       </div>
       {showValue && (
-        <span className="rating__value">
+        <span className="text-xs text-gray-500">
           {value.toFixed(1)} / {maxRating}
         </span>
       )}
@@ -84,3 +83,4 @@ const Rating = ({
 };
 
 export default Rating;
+

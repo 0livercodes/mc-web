@@ -1,5 +1,5 @@
 import Badge from '../common/Badge';
-import './ProductPrice.css';
+import { formatPrice } from '../../utils/formatters';
 
 /**
  * Product Price component with discount handling and currency formatting
@@ -19,52 +19,30 @@ const ProductPrice = ({
     ? Math.round((discountAmount / originalPrice) * 100) 
     : 0;
 
-  const formatPrice = (amount) => {
-    if (!showCurrency) {
-      return amount.toFixed(2);
-    }
-    
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency,
-    }).format(amount);
-  };
+  // Use shared formatPrice utility
 
-  const classes = [
-    'product-price',
-    `product-price--${size}`,
-    `product-price--${orientation}`,
-    hasDiscount ? 'product-price--has-discount' : '',
-    className
-  ].filter(Boolean).join(' ');
+  // Tailwind utility classes for price display
+  const sizeClasses = size === 'large' ? 'text-2xl' : size === 'small' ? 'text-base' : 'text-lg';
+  const orientationClasses = orientation === 'vertical' ? 'flex flex-col items-start gap-1' : 'flex items-center gap-2';
+  const discountClasses = hasDiscount ? 'text-red-500' : '';
+  const classes = [orientationClasses, className].filter(Boolean).join(' ');
 
   return (
     <div className={classes}>
-      <div className="product-price__current">
-        <span className="product-price__amount" aria-label={`Current price: ${formatPrice(price)}`}>
-          {formatPrice(price)}
-        </span>
-      </div>
-      
+      <span className={`font-bold ${sizeClasses} text-gray-900`} aria-label={`Current price: ${formatPrice(price, currency, showCurrency)}`}>
+        {formatPrice(price, currency, showCurrency)}
+      </span>
       {hasDiscount && (
         <>
-          <div className="product-price__original">
-            <span 
-              className="product-price__original-amount"
-              aria-label={`Original price: ${formatPrice(originalPrice)}`}
-            >
-              {formatPrice(originalPrice)}
-            </span>
-          </div>
-          
-          <div className="product-price__savings">
-            <Badge variant="sale" size="small">
-              -{discountPercentage}%
-            </Badge>
-            <span className="product-price__save-amount">
-              Save {formatPrice(discountAmount)}
-            </span>
-          </div>
+          <span className={`line-through text-gray-400 ml-2`} aria-label={`Original price: ${formatPrice(originalPrice, currency, showCurrency)}`}>
+            {formatPrice(originalPrice, currency, showCurrency)}
+          </span>
+          <Badge variant="sale" size="small" className="ml-2">
+            -{discountPercentage}%
+          </Badge>
+          <span className="ml-2 text-xs text-green-600 font-medium">
+            Save {formatPrice(discountAmount, currency, showCurrency)}
+          </span>
         </>
       )}
     </div>
